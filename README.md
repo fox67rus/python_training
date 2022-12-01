@@ -1,5 +1,5 @@
 # python_training
-My python coding practice
+My python coding practice. Here I will show my progress in learning Python programming language.
 
 DIRECTORY STRUCTURE
 -------------------
