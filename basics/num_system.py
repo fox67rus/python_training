@@ -1,9 +1,13 @@
-# перевод из десятичной СС в любую другую
+# перевод из десятичной СС в любую другую от 2-ной до 9-ной
+def num_sys10(num, base=8):
+    if base <= 1 or base > 10 or num < 0:
+        return "Error: ~"
+    new_num = ""
+    while num > 0:
+        new_num = new_num + str(num % base)
+        num //= base
+    return new_num[::-1]
 
-base = 8
-num = int(input("Input some number: "))
 
-while num > 0:
-    new_num = num % base
-    print(new_num, end="")
-    num //= base
+if __name__ == '__main__':
+    print(num_sys10(10))
