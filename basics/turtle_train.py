@@ -56,13 +56,11 @@ def draw_many_square(first_side_size, number):
     draws a lot of square
     :param first_side_size: int - the side of the smallest square
     :param number: int - number of squares
-
     """
     distance = first_side_size
     step = int(first_side_size / 2)
     for i in range(0, step * number, step):
         turtle.penup()
-        turtle.home()
         turtle.goto(-i, -i)
         turtle.pendown()
         turtle.forward(distance)
@@ -72,6 +70,7 @@ def draw_many_square(first_side_size, number):
         turtle.forward(distance)
         turtle.left(90)
         turtle.forward(distance)
+        turtle.left(90)
         distance += 10
         """ for debugging
         print(turtle.pos(), end=" ")
@@ -81,9 +80,9 @@ def draw_many_square(first_side_size, number):
 
 
 if __name__ == '__main__':
-    turtle.speed(2)
+    turtle.speed(4)
     turtle.shape('turtle')
-    # draw_s()
-    # draw_square(100)
-    # draw_circle()
+    draw_s()
+    draw_square(100)
+    draw_circle()
     draw_many_square(10, 10)
