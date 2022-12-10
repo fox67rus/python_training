@@ -83,7 +83,7 @@ def draw_many_square(first_side_size, number):
 if __name__ == '__main__':
     turtle.speed(2)
     turtle.shape('turtle')
-    #draw_s()
-    #draw_square(100)
-    #draw_circle()
+    # draw_s()
+    # draw_square(100)
+    # draw_circle()
     draw_many_square(10, 10)
