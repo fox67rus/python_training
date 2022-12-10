@@ -13,4 +13,6 @@ def num_sys10(num: int, base=8):
 
 
 if __name__ == '__main__':
-    print(num_sys10(10))
+    num = int(input("Введите число: "))
+    base = int(input("Введите основание системы счисления: "))
+    print(num_sys10(num, base))
