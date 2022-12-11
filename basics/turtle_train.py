@@ -82,7 +82,8 @@ def draw_many_square(first_side_size, number):
 def draw_spider(n: int = 12, length: int = 100):
     """
     draw a spider with n legs
-    :param n: integer
+    :param n:
+    :param length:
     :return:
     """
     for i in range(n):
