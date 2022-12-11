@@ -90,9 +90,22 @@ def draw_spider(n: int = 12, length: int = 100):
         turtle.penup()
         turtle.home()
         turtle.pendown()
-        turtle.right(360 / n*(i+1))
+        turtle.right(360 / n * (i + 1))
         turtle.forward(length)
         turtle.stamp()
+
+
+def draw_spiral():
+    pass
+
+
+def draw_square_spiral(first_side_size: int = 10, number: int = 10):
+    distance = first_side_size
+    for i in range(number*4):
+        turtle.forward(distance)
+        turtle.left(90)
+        distance +=5
+
 
 
 if __name__ == '__main__':
@@ -102,4 +115,5 @@ if __name__ == '__main__':
     # draw_square(100)
     # draw_circle()
     # draw_many_square(10, 10)
-    draw_spider()
+    # draw_spider()
+    draw_square_spiral()
