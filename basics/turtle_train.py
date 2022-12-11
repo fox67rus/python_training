@@ -79,10 +79,26 @@ def draw_many_square(first_side_size, number):
         """
 
 
+def draw_spider(n: int = 12, length: int = 100):
+    """
+    draw a spider with n legs
+    :param n: integer
+    :return:
+    """
+    for i in range(n):
+        turtle.penup()
+        turtle.home()
+        turtle.pendown()
+        turtle.right(360 / n*(i+1))
+        turtle.forward(length)
+        turtle.stamp()
+
+
 if __name__ == '__main__':
     turtle.speed(4)
     turtle.shape('turtle')
-    draw_s()
-    draw_square(100)
-    draw_circle()
-    draw_many_square(10, 10)
+    # draw_s()
+    # draw_square(100)
+    # draw_circle()
+    # draw_many_square(10, 10)
+    draw_spider()
