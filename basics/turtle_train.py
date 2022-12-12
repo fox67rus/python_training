@@ -10,6 +10,19 @@ def set_home():
     turtle.pendown()
 
 
+def draw_sun():
+    set_home()
+    turtle.color('red', 'yellow')
+    turtle.begin_fill()
+    while True:
+        turtle.forward(200)
+        turtle.left(170)
+        if abs(turtle.pos()) < 1:
+            break
+    turtle.end_fill()
+    turtle.done()
+
+
 def draw_s():
     """ draws S
     """
@@ -95,25 +108,44 @@ def draw_spider(n: int = 12, length: int = 100):
         turtle.stamp()
 
 
-def draw_spiral():
-    pass
+def draw_spiral(a: int = 5, n: int = 10):
+    """
+    draw Archimedean spiral
+    :param a: initial radius
+    :param n: quantity loops of one arm of an Archimedean spiral
+    """
+    set_home()
+    a1 = a
+    turtle.goto(a, 0)
+    for i in range(n):
+        turtle.dot(1)
+        turtle.left(20)
+        turtle.forward(3)
+        i += 1
 
 
 def draw_square_spiral(first_side_size: int = 10, number: int = 10):
     distance = first_side_size
-    for i in range(number*4):
+    for i in range(number * 4):
         turtle.forward(distance)
         turtle.left(90)
-        distance +=5
-
+        distance += 5
 
 
 if __name__ == '__main__':
     turtle.speed(4)
     turtle.shape('turtle')
     # draw_s()
+    # turtle.clear()
     # draw_square(100)
+    # turtle.clear()
     # draw_circle()
+    # turtle.clear()
     # draw_many_square(10, 10)
+    # turtle.clear()
     # draw_spider()
-    draw_square_spiral()
+    # turtle.clear()
+    # draw_square_spiral()
+    # turtle.clear()
+    draw_spiral()
+    # draw_sun()
