@@ -1,4 +1,9 @@
-import turtle
+from turtle import Turtle, Screen
+from math import pi, sin, cos
+from random import randint, random
+
+screen = Screen()
+turtle = Turtle()
 
 
 def set_home():
@@ -115,13 +120,14 @@ def draw_spiral(a: int = 5, n: int = 10):
     :param n: quantity loops of one arm of an Archimedean spiral
     """
     set_home()
-    a1 = a
-    turtle.goto(a, 0)
-    for i in range(n):
-        turtle.dot(1)
-        turtle.left(20)
-        turtle.forward(3)
-        i += 1
+    k = n / (2 * pi)
+    g = 0
+    while g < 3 * (2 * pi):
+        D = k * g
+        x = D * cos(g)
+        y = D * sin(g)
+        turtle.goto(x, y)
+        g += 0.1
 
 
 def draw_square_spiral(first_side_size: int = 10, number: int = 10):
@@ -133,7 +139,7 @@ def draw_square_spiral(first_side_size: int = 10, number: int = 10):
 
 
 if __name__ == '__main__':
-    turtle.speed(4)
+    turtle.speed(5)
     turtle.shape('turtle')
     # draw_s()
     # turtle.clear()
