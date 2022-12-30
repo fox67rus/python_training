@@ -5,7 +5,7 @@ class SuperHouse:
 
     # конструктор
     def __init__(self, floor):
-        self.__square = 15
+        self._square = 15
         # скрытый атрибут
         self._floor = floor
         # приватный атрибут
@@ -14,16 +14,16 @@ class SuperHouse:
 
     @property
     def square(self):
-        return self.__square
+        return self._square
 
     @square.setter
     def square(self, set_square):
         if set_square < 15:
-            self.__square = 15
+            self._square = 15
         elif set_square > 100:
-            self.__square = 100
+            self._square = 100
         else:
-            self.__square = set_square
+            self._square = set_square
 
     @property
     def wall(self):
@@ -34,7 +34,7 @@ class SuperHouse:
         self.__wall = wall
 
     def build_balcony(self, i):
-        self.__square -= i
+        self._square -= i
 
     def build_roof(self):
         print('Построили крышу с помощью материала - ' + self.roof + '. В классе SuperHouse')
@@ -45,13 +45,17 @@ class House(SuperHouse):
         super().__init__(floor)
         print("Дом с заданными параметрами построен в классе House")
 
-    # полиморфизм - переропределение метода родительского класса
+    # полиморфизм - переопределение метода родительского класса
     def build_roof(self):
         print('Построили крышу с помощью материала - ' + self.roof + '. В классе House')
 
+    def build_balcony(self, i):
+        self._square -= i
+
 
 house = House(3)
-house.build_roof()
+house.build_balcony(5)
+print(house.square)
 
 print(type(house))
 
