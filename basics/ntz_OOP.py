@@ -41,6 +41,9 @@ class House:
 
 
 my_house = House(3)
+
+print(my_house)
+
 my_house.wall = 'брус'
 print(my_house.wall)
 
@@ -49,8 +52,8 @@ print(my_house.square)
 
 # # обращение к скрытому атрибуту
 # print(my_house._wall)
-# # обрщение к приватному атрибуту
-# print(my_house._House__floor)
+# # обращение к приватному атрибуту
+# print(my_house._House__wall)
 
 # print(my_house.square)
 # my_house.build_balcony(10)
