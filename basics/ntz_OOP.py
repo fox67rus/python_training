@@ -1,4 +1,4 @@
-class House:
+class SuperHouse:
     # константа - условная неизменяемая переменная
     FOUNDATION = 'strip'
     roof = 'шифер'
@@ -10,7 +10,7 @@ class House:
         self._floor = floor
         # приватный атрибут
         self.__wall = 'кирпич'
-        print("Дом с заданными параметрами построен")
+        print("Дом с заданными параметрами построен в классе SuperHouse")
 
     @property
     def square(self):
@@ -37,18 +37,37 @@ class House:
         self.__square -= i
 
     def build_roof(self):
-        print('Построили крышу с помощью материала - ' + self.roof)
+        print('Построили крышу с помощью материала - ' + self.roof + '. В классе SuperHouse')
 
 
-my_house = House(3)
+class House(SuperHouse):
+    def __init__(self, floor):
+        super().__init__(floor)
+        print("Дом с заданными параметрами построен в классе House")
 
-print(my_house)
+    # полиморфизм - переропределение метода родительского класса
+    def build_roof(self):
+        print('Построили крышу с помощью материала - ' + self.roof + '. В классе House')
 
-my_house.wall = 'брус'
-print(my_house.wall)
 
-my_house.square = 100
-print(my_house.square)
+house = House(3)
+house.build_roof()
+
+print(type(house))
+
+
+
+
+
+# my_house = House(3)
+#
+# print(my_house)
+#
+# my_house.wall = 'брус'
+# print(my_house.wall)
+#
+# my_house.square = 100
+# print(my_house.square)
 
 # # обращение к скрытому атрибуту
 # print(my_house._wall)
