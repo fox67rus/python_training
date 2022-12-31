@@ -19,7 +19,7 @@ class Human:
     lastname: str = 'Petrov'
     age: int = 20
     year: int = 2002
-    # не инициилизировать и не получать значения
+    # не инициализировать и не получать значения
     fullname: str = field(init=False, repr=False)
 
     # формирование параметра после инициализации
@@ -27,6 +27,25 @@ class Human:
         self.fullname = self.lastname + " " + self.firstname
 
 
-human = Human("Alex", "Ivanov", 26, 1996)
-print(human.fullname)
+@dataclass()
+class Additional:
+    growth: int
+    weight: int
 
+
+@dataclass()
+class Data:
+    human: Human
+    additional: Additional
+
+
+def get_data() -> Data:
+    data = Data(human=Human(firstname='Ivan', lastname='Petrov', age=25, year=1997),
+                additional=Additional(growth=190, weight=90))
+    return data
+
+get_values = get_data()
+print(get_values)
+
+# human = Human("Alex", "Ivanov", 26, 1996)
+# print(human.fullname)
