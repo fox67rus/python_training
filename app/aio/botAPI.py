@@ -2,13 +2,31 @@ from aiogram import Bot, Dispatcher, types
 import asyncio
 import logging
 
+from aiogram.types import BotCommand, BotCommandScopeDefault
+
 token = "5851531651:AAF0rxk4mRGCUAHLyUdw_QjeiDSNJkJiCG8"
 admin_id = 924348820
 
 logger = logging.getLogger(__name__)
 
 
+# создание команд
+async def commands(bot: Bot):
+    command = [
+        BotCommand(
+            command='start',
+            description='Начало работы'
+        ),
+        BotCommand(
+            command='help',
+            description='Помощь'
+        )
+    ]
+
+    await bot.set_my_commands(command, BotCommandScopeDefault())
+
 async def start_up(bot: Bot):
+    await commands(bot)
     await bot.send_message(admin_id, text="Бот запущен")
 
 
