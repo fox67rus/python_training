@@ -13,7 +13,7 @@ from dataclasses import dataclass
 
 
 # data class
-@dataclass
+@dataclass(frozen=True)
 class Human:
     firstname: str
     lastname: str
@@ -22,4 +22,6 @@ class Human:
 
 
 human = Human("Alex", "Ivanov", 26, 1996)
+print(human)
+human.firstname = 'Ivan'
 print(human)
