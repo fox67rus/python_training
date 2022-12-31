@@ -31,7 +31,18 @@
 # print(result)
 
 # замена отрицательных элементов на 0
-source = [30, 15, -5, 7, 15, -9, ]
+# source = [30, 15, -5, 7, 15, -9, ]
+#
+# result = [s if s > 0 else 0 for s in source]
+# print(result)
 
-result = [s if s > 0 else 0 for s in source]
+# возвести в квадрат список чисел от 0 до 100
+result = []
+
+for i in range(100):
+    result.append(i * i)
+print(result)
+
+
+result = [i * i for i in range(100)]
 print(result)
