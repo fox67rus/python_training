@@ -1,4 +1,4 @@
-from aiogram import Bot, Dispatcher, types
+from aiogram import Bot, Dispatcher, types, F
 import asyncio
 import logging
 
@@ -45,8 +45,17 @@ async def echo(message: types.Message):
 async def text(message: types.Message):
     await message.answer("Ты ввел текст: " + message.text)
 
+
 async def on_start(message: types.Message):
     await message.reply("Начинаем работать")
+
+
+async def hi_admin(message: types.Message):
+    await message.reply("Привет, админ!")
+
+# обработка картинок
+# async def pictures(message: types.Message):
+#     await message.answer("Привет! Красивая картинка")
 
 
 async def start():
@@ -63,11 +72,14 @@ async def start():
     dp.startup.register(start_up)
     dp.shutdown.register(shut_down)
 
-    # регистрация хэндлера с фильтром
+    # dp.message.register(pictures, content_types=['photo', 'sticker'])
+    # приветствие админа
+    dp.message.register(hi_admin, F.from_user.id == admin_id, F.text == 'Привет')
+    # обработка команд
     dp.message.register(on_start, Command(commands=['start', 'go']))
+    # регистрация хэндлера с фильтром
     dp.message.register(text, Text(text='Салют'))
     dp.message.register(echo)
-
 
     await dp.start_polling(bots)
 
