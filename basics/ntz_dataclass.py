@@ -39,12 +39,23 @@ class Data:
     additional: Additional
 
 
-def get_data() -> Data:
-    data = Data(human=Human(firstname='Ivan', lastname='Petrov', age=25, year=1997),
-                additional=Additional(growth=190, weight=90))
+def get_data(firstname, lastname, age, year, growth, weight) -> Data:
+    data = Data(
+        human=Human(
+            firstname=firstname,
+            lastname=lastname,
+            age=age,
+            year=year
+        ),
+        additional=Additional(
+            growth=growth,
+            weight=weight
+        )
+    )
     return data
 
-get_values = get_data()
+
+get_values = get_data('Maxim', 'Sidorov', 25, 1997, 180, 70)
 print(get_values)
 
 # human = Human("Alex", "Ivanov", 26, 1996)
