@@ -1,3 +1,4 @@
+import csv
 import os
 import re
 
@@ -20,6 +21,9 @@ proxies = {
 }
 
 host = 'https://komp.1k.by/mobile-notebooks/s.php?alias=mobile&alias2=notebooks&filter=actual&viewmode=table&page='
+
+# путь к файлу csv для сохранения результатов
+output_file = 'output.csv'
 
 
 # формирование запроса с учетом нумерации страниц
@@ -70,10 +74,14 @@ def request_get():
                 # получаем значение характеристики
                 value_character = feature.find('td', class_='spec-list__val').text
                 print(value_character)
+                # добавление каждой характеристики в словарь
+                dict_characters[name_character] = value_character
 
-                link_photos = response_features_bs.find_all('span', class_=re.compile('spec-images__it colorbox'))
-                print(link_photos)
-                download_image(id_product, link_photos)
+            link_photos = response_features_bs.find_all('span', class_=re.compile('spec-images__it colorbox'))
+            print(link_photos)
+            download_image(id_product, link_photos)
+            # вызываем метод сохранения в файл
+            add_data(dict_characters)
 
         # следующая страница каталога
         number += 1
@@ -83,6 +91,73 @@ def request_get():
         if not next_page:
             print('Завершили репарс всей категории, прекращаем выполнение')
             break
+
+
+def add_data(dict_characters: dict):
+    if not os.path.exists(output_file):
+        # если файла нет, то создаем с кодировкой cp1251 чтобы читал Excel, если будет найден не понятный символ,
+        # то он будет заменен на ?
+        with open(output_file, 'w', encoding='cp1251', newline='', errors='replace') as file:
+            # создаем врайтер для работы со словарями
+            writer = csv.DictWriter(file, fieldnames=list(dict_characters.keys()), delimiter=';', lineterminator='\r\n')
+            # записываем заголовки
+            writer.writeheader()
+            # добавляем строку с характеристиками
+            writer.writerow(dict_characters)
+        return
+
+    # если файл уже создан, то открываеми читаем заголовки - название характеристик
+    with open(output_file, 'r', encoding='cp1251') as file:
+        # читаем первую строку
+        lines = file.readlines()[0].replace('\n', '')
+
+    # получаем текущие имена характеристик в список и перебор словаря, добавление характеристик, которых ещё нет
+    key_character = lines.split(';')
+    for k, v in dict_characters.items():
+        # перебираем полученный словарь и добавляем характеристики, которых ещё нет
+        if k not in key_character:
+            key_character.append(k)
+
+    # создаем список со значениями характеристик и наполним его текущими характеристиками
+    value_character = []
+
+    for key in key_character:
+        # перебираем текущий словарь и если в нём есть ключ текущий из полученных характеристик, то добавляем
+        # в список value_character значения из этого словаря
+        if key in dict_characters:
+            value_character.append(dict_characters[key])
+        else:
+            # если не находим, то добавляем пустую строку, потому что у разных моделей отсутствуют некоторые
+            # характеристики
+            value_character.append('')
+
+    # формируем строки имен характеристик и значений для добавляния в файл
+    result_value = ';'.join(value_character)
+    result_key = ';'.join(key_character)
+
+    # открываем файл для добавления данных в конец файла
+    with open(output_file, 'a', errors='replace') as file:
+        file.write(f'{result_value}\n')
+
+    replace_keys(result_key)
+
+
+def replace_keys(keys):
+    # добавить все строки из выходного файла, кроме первой строки с именами характеристик
+    with open(output_file, 'r', encoding='cp1251') as file:
+        # сохраняем все строки из текущего файла
+        lines = file.readlines()
+    # создаем новый временный список и добавляем все переданные названия характеристик
+    new_list = [f'{keys}\n']
+    # добавляем все считанные строки, кроме первой
+    new_list.extend(lines[1:])
+    # удаляем старый файл
+    os.remove(output_file)
+
+    # открываем файл для добавления данных и добавляем ранее полученные значения
+    with open(output_file, 'a', newline='', errors='replace') as file:
+        for line in new_list:
+            file.write(line)
 
 
 def download_image(id: str, photos: list):
