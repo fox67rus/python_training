@@ -1,3 +1,5 @@
+import re
+
 from bs4 import BeautifulSoup
 import requests
 
@@ -29,4 +31,11 @@ for el_product in col_product:
     print(id_product)
     model = el_product.find('div', class_='prod-nb__head').find('span', class_='prod-nb__name')
     print(model.text.strip())
+    price = el_product.find('div', class_='prod-nb__price')
+    print(price.text)
+    # получение ссылки на изображение с помощью маски
+    link_image = el_product.find('span', class_=re.compile('colorbox_group')).get('data-srcbig')
+    print(link_image)
+
+
 
