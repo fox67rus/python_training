@@ -13,3 +13,10 @@ bs = BeautifulSoup(response_page.text, 'lxml')
 
 print(bs.title.text)
 
+# получение всех объхектов meta
+col_metas = bs.find_all('meta')
+
+for el_meta in col_metas:
+    # print(el_meta)
+    print(el_meta.get('content'))
+
