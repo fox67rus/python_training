@@ -37,11 +37,29 @@ def request_get():
 
         # перебор карточек и получение ссылок на товары
         for el_card in col_cards:
+            # словарь для временного хранения характеристик товаров
+            dict_characters = {}
+
             link_feature = f"https://komp.1k.by{el_card.find('a').get('href')}"
             print(f'Получили ссылку {link_feature}')
 
             id_product = el_card.get('data-productid')
             print(f"Получили id товара {id_product}")
+
+            # переход внутрь карточки товара
+            request_features = requests.get(url=link_feature, headers=headers)
+            response_features_bs = BeautifulSoup(request_features.text, 'lxml')
+
+            name_model = response_features_bs.find('div', class_='heading')
+            print(f'Получили модель {name_model}')
+            price = response_features_bs.find('div', class_='spec-about__price')
+            print(f'Получили цену {price}')
+
+            dict_characters.update(id=id_product, Модель=name_model.text.strip(), Цена=price.text, Ссылка=link_feature)
+            print(dict_characters)
+
+
+
 
         # следующая страница каталога
         number += 1
