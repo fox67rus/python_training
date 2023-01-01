@@ -1,3 +1,6 @@
+import os
+import re
+
 from bs4 import BeautifulSoup
 import requests
 
@@ -58,8 +61,19 @@ def request_get():
             dict_characters.update(id=id_product, Модель=name_model.text.strip(), Цена=price.text, Ссылка=link_feature)
             print(dict_characters)
 
+            features = response_features_bs.find('div', class_='spec-info__main').find_all('tr', class_='spec-list__it')
 
+            for feature in features:
+                # получаем название характеристики
+                name_character = feature.find('span', class_='spec-list__txt').text
+                print(name_character)
+                # получаем значение характеристики
+                value_character = feature.find('td', class_='spec-list__val').text
+                print(value_character)
 
+                link_photos = response_features_bs.find_all('span', class_=re.compile('spec-images__it colorbox'))
+                print(link_photos)
+                download_image(id_product, link_photos)
 
         # следующая страница каталога
         number += 1
@@ -69,6 +83,28 @@ def request_get():
         if not next_page:
             print('Завершили репарс всей категории, прекращаем выполнение')
             break
+
+
+def download_image(id: str, photos: list):
+    # путь к текущей директории + название папки по id
+    directory = os.getcwd() + f'/results/{id}'
+    # проверка есть ли текущая директория, создание при отсутствии
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+    for photo in photos:
+        # извлечение ссылки
+        link_photo = photo.get('data-srcbig')
+        # получение id фотографии из ссылки
+        # https://static.1k.by/images/productsimages/ip/big/ppa/0/4603926/iacd1a530a.jpg
+        id_photo = link_photo.rsplit('/', 1)[1].split('.')[0]
+        print(id_photo)
+        path_save_photo = f'{directory}/{id_photo}.jpg'
+        print(path_save_photo)
+        result = requests.get(link_photo)
+        # открыть файл для записи в бинарном формате
+        with open(path_save_photo, 'wb') as img_file:
+            img_file.write(result.content)
 
 
 if __name__ == '__main__':
