@@ -37,5 +37,12 @@ for el_product in col_product:
     link_image = el_product.find('span', class_=re.compile('colorbox_group')).get('data-srcbig')
     print(link_image)
 
+    # # получить все дочерние элементы
+    # for prod in el_product.children:
+    #     print(prod)
+
+    # # получить всех наследников
+    # for prod in el_product.descendants:
+    #     print(prod)
 
 
