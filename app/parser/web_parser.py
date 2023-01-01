@@ -13,10 +13,20 @@ bs = BeautifulSoup(response_page.text, 'lxml')
 
 print(bs.title.text)
 
-# получение всех объхектов meta
-col_metas = bs.find_all('meta')
+# # получение всех объектов meta
+# col_metas = bs.find_all('meta')
+#
+# for el_meta in col_metas:
+#     # print(el_meta)
+#     print(el_meta.get('content'))
 
-for el_meta in col_metas:
-    # print(el_meta)
-    print(el_meta.get('content'))
+# получение всех карточек товаров, class_ чтобы не путать с классом python
+col_product = bs.find_all('div', class_='prod-nb')
+print(len(col_product))
+
+for el_product in col_product:
+    id_product = el_product.get('data-seriesmainproductid')
+    print(id_product)
+    model = el_product.find('div', class_='prod-nb__head').find('span', class_='prod-nb__name')
+    print(model.text.strip())
 
