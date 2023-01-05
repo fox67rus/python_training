@@ -129,5 +129,7 @@ dmypy.json
 .pyre/
 
 # PyCharm
-
 .idea/
+
+# Confidencial
+/app/aio/settings.py
