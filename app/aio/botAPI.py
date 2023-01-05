@@ -1,12 +1,13 @@
 from aiogram import Bot, Dispatcher, types, F
 import asyncio
 import logging
+import settings
 
 from aiogram.filters import Text, Command
 from aiogram.types import BotCommand, BotCommandScopeDefault
 
-token = "5851531651:AAF0rxk4mRGCUAHLyUdw_QjeiDSNJkJiCG8"
-admin_id = 924348820
+token = settings.TOKEN
+admin_id = settings.ADMIN_ID
 
 logger = logging.getLogger(__name__)
 
