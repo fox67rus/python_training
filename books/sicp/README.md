@@ -5,6 +5,7 @@
 
 - [Инструкция](https://guides.hexlet.io/ru/how-to-learn-sicp/)
 - [Книга на английском](https://web.mit.edu/6.001/6.037/sicp.pdf)
+- [Книга на русском](https://mirror.yandex.ru/mirrors/ftp.linux.kiev.ua/docs/developer/general/sicp-ru/sicp-ru-screen.pdf)
 - [Лекции](https://www.youtube.com/playlist?list=PLc6AqfeLgwzPPK1H3XV1Wfb_CGvT6sXkC)
 * Eli Bendersky's website  : http://eli.thegreenplace.net/tag/sicp
 
