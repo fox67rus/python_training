@@ -3,6 +3,8 @@ import requests
 
 
 def main():
+    session = requests.Session()
+
     base_url = 'https://httpbin.org'
 
     query_params = {
@@ -27,20 +29,24 @@ def main():
         }
 
         try:
-            response = requests.post(url=base_url + '/post',
+            response = session.post(url=base_url + '/post',
+                                    params=query_params,
+                                    headers=headers,
+                                    data=payload,
+                                    files=files,
+                                    timeout=0.001)
+            response_2 = session.get(url=base_url + '/post',
                                      params=query_params,
                                      headers=headers,
-                                     data=payload,
-                                     files=files,
                                      timeout=0.001)
         except requests.exceptions.ConnectTimeout:
             print(f'Ресурс {base_url} недоступен')
         else:
             print(response.status_code)
-            # print(response.text)
-            print(response.json())
-            # преобразование json в словарь и словарь в json
-            print(json.dumps(json.loads(response.text)))
+            print(response.text)
+            # print(response.json())
+            # # преобразование json в словарь и словарь в json
+            # print(json.dumps(json.loads(response.text)))
 
 
 if __name__ == '__main__':
