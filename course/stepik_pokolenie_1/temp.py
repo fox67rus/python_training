@@ -1,9 +1,11 @@
-# Decimal to Binary
-num_10 = 128
-num_2 = ''
-while num_10 != 0:
-    num_2 += str(num_10 % 2)
-    num_10 //= 2
-
-for i in range(1, len(num_2)+1):
-    print(num_2[-i], end='')
+# Суммы двух
+sum_list = []
+temp = 0
+for i in range(int(input())):
+    if i == 0:
+        temp = int(input())
+        continue
+    cur_number = int(input())
+    sum_list.append(cur_number + temp)
+    temp = cur_number
+print(sum_list)
